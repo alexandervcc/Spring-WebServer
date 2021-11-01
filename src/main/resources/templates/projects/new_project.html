@@ -22,6 +22,13 @@
 				
 				<textarea type="text" placeholder="Enter Project Description" th:field="${project.projectDesc}"/>
 				
+				<select th:field="*{employees}" multiple="multiple">
+					<option th:each="emp:${allEmployees}"
+						th:value="${emp.employeeId}"
+						th:text="${emp.employeeFirstName}"
+					/>
+				</select>
+				
 				<button type="submit">Create Project</button>
 			
 			</form>
