@@ -11,7 +11,7 @@ import acc.projman.entity.Employee;
 import acc.projman.entity.Project;
 import java.util.Arrays;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"acc.projman","acc.utils "})
 public class ProjManApplication {
 	@Autowired
 	EmployeeRepositoryInterf empRepo;
@@ -21,7 +21,7 @@ public class ProjManApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProjManApplication.class, args);
 	}
-/*
+
 	@Bean
 	CommandLineRunner runner() {
 		return args->{
@@ -78,5 +78,5 @@ public class ProjManApplication {
 						projRepo.save(pro4);
 		};
 	}
-*/
+
 }
