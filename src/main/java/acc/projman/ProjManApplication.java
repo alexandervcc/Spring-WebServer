@@ -21,7 +21,7 @@ public class ProjManApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProjManApplication.class, args);
 	}
-
+	/*
 	@Bean
 	CommandLineRunner runner() {
 		return args->{
@@ -77,6 +77,6 @@ public class ProjManApplication {
 						projRepo.save(pro3); 
 						projRepo.save(pro4);
 		};
-	}
+	}*/
 
 }

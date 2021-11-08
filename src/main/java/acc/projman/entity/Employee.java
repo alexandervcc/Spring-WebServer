@@ -12,21 +12,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Employee {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long employeeId;
-	private String employeeFirstName;
-	private String employeeLastName;
-	private String employeeEmail;
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="employee_seq")
+	@SequenceGenerator(name = "employee_seq", allocationSize = 1) 
+	private long employee_id;
+	private String first_name;
+	private String last_name;
+	private String email;
 	
 	//@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},fetch=FetchType.LAZY)
 	//@JoinColumn(name="fk_project")	
 	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},fetch=FetchType.LAZY)
-	@JoinTable(name="hist_proj_empl",joinColumns = @JoinColumn(name="fk_employee"),
-	inverseJoinColumns = @JoinColumn(name="fk_project"))
+	@JoinTable(name="project_employee",joinColumns = @JoinColumn(name="employee_id"),
+	inverseJoinColumns = @JoinColumn(name="project_id"))
 	private List<Project> projects;	
 	
 	
@@ -34,41 +36,41 @@ public class Employee {
 	
 	public Employee(String employeeFirstName, String employeeLastName, String employeeEmail) {
 		super();
-		this.employeeFirstName = employeeFirstName;
-		this.employeeLastName = employeeLastName;
-		this.employeeEmail = employeeEmail;
+		this.first_name = employeeFirstName;
+		this.last_name = employeeLastName;
+		this.email = employeeEmail;
 	}
 
 	public long getEmployeeId() {
-		return employeeId;
+		return employee_id;
 	}
 
 	public void setEmployeeId(long employeeId) {
-		this.employeeId = employeeId;
+		this.employee_id = employeeId;
 	}
 
 	public String getEmployeeFirstName() {
-		return employeeFirstName;
+		return first_name;
 	}
 
 	public void setEmployeeFirstName(String employeeFirstName) {
-		this.employeeFirstName = employeeFirstName;
+		this.first_name = employeeFirstName;
 	}
 
 	public String getEmployeeLastName() {
-		return employeeLastName;
+		return last_name;
 	}
 
 	public void setEmployeeLastName(String employeeLastName) {
-		this.employeeLastName = employeeLastName;
+		this.last_name = employeeLastName;
 	}
 
 	public String getEmployeeEmail() {
-		return employeeEmail;
+		return email;
 	}
 
 	public void setEmployeeEmail(String employeeEmail) {
-		this.employeeEmail = employeeEmail;
+		this.email = employeeEmail;
 	}
 
 	public List<Project> getProjects() {

@@ -12,21 +12,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Project {
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long projectId;
-	private String projectName;
-	private String projectStage;//NOSTARTED, COMPLETED, INPROGRESS
-	private String projectDesc;
-	
+	@Id 
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="project_seq")
+	@SequenceGenerator(name = "project_seq", allocationSize = 1) 
+	private long project_id;
+	private String name;
+	private String stage;//NOSTARTED, COMPLETED, INPROGRESS
+	private String description;
+	 
 	//@OneToMany(mappedBy = "fkProject")	//mapped by attribute at other table
 	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},fetch=FetchType.LAZY)
-	@JoinTable(name="hist_proj_empl",joinColumns = @JoinColumn(name="fk_project"),
-			inverseJoinColumns = @JoinColumn(name="fk_employee"))
-	private List<Employee> employees;	//A project has many employees
+	@JoinTable(name="project_employee",joinColumns = @JoinColumn(name="project_id"),
+			inverseJoinColumns = @JoinColumn(name="employee_id"))
+	private List<Employee> employees;	//A project has many employees 
 	
 	public Project() {
 		 
@@ -34,41 +36,41 @@ public class Project {
 	
 	public Project(String projectName, String projectStage, String projectDesc) {
 		super();
-		this.projectName = projectName;
-		this.projectStage = projectStage;
-		this.projectDesc = projectDesc;
+		this.name = projectName;
+		this.stage = projectStage;
+		this.description = projectDesc;
 	}
 
 	public long getProjectId() {
-		return projectId;
+		return project_id;
 	}
 
 	public void setProjectId(long projectId) {
-		this.projectId = projectId;
+		this.project_id = projectId;
 	}
 
 	public String getProjectName() {
-		return projectName;
+		return name;
 	}
 
 	public void setProjectName(String projectName) {
-		this.projectName = projectName;
+		this.name = projectName;
 	}
 
 	public String getProjectStage() {
-		return projectStage;
+		return stage;
 	}
 
 	public void setProjectStage(String projectStage) {
-		this.projectStage = projectStage;
+		this.stage = projectStage;
 	}
 
 	public String getProjectDesc() {
-		return projectDesc;
+		return description;
 	}
 
 	public void setProjectDesc(String projectDesc) {
-		this.projectDesc = projectDesc;
+		this.description = projectDesc;
 	}
 
 	public List<Employee> getEmployees() {
