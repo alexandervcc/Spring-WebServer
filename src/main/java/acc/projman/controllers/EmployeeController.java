@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import acc.projman.dao.EmployeeRepositoryInterf;
 import acc.projman.entity.Employee;
+import acc.projman.services.EmployeeService;
 
 @Controller
 @RequestMapping("/employees")
 public class EmployeeController {
 	@Autowired
-	private EmployeeRepositoryInterf emplRepo;
+	private EmployeeService employeeService;
 	
 	@GetMapping("/new")
 	public String getEmployeeForm(Model model) {
@@ -27,7 +28,7 @@ public class EmployeeController {
 	public String postProjectForm(Employee employee, Model model) {
 		//Save to database
 		System.out.print(employee.getEmployeeEmail());
-		emplRepo.save(employee);
+		employeeService.save(employee);
 		//Reedirect-> prevent duplicate submissions
 		return "redirect:/employees/new";
 	}

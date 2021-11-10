@@ -14,20 +14,22 @@ import acc.projman.dao.EmployeeRepositoryInterf;
 import acc.projman.dao.ProjectRepositoryInterf;
 import acc.projman.entity.Employee;
 import acc.projman.entity.Project;
+import acc.projman.services.EmployeeService;
+import acc.projman.services.ProjectService;
 
 @Controller
 @RequestMapping("/projects")
 public class ProjectController {
 	
 	@Autowired
-	ProjectRepositoryInterf projRepo;
+	ProjectService projectService;
 	@Autowired
-	EmployeeRepositoryInterf emplRepo;
+	EmployeeService employeeService;
 	
 	@GetMapping("/new")
 	public String getProjectForm(Model model) {
 		Project p1 = new Project();
-		List<Employee> listEmpl=emplRepo.findAll();
+		List<Employee> listEmpl=employeeService.getAll();
 		model.addAttribute("project",p1);
 		model.addAttribute("allEmployees", listEmpl);
 		
@@ -36,7 +38,7 @@ public class ProjectController {
 	
 	@PostMapping("/save/one_to_many")
 	public String postProjectFormOneToMany(Project project, @RequestParam List<Long> employees, Model model) {
-		projRepo.save(project);
+		projectService.save(project);
 		
 		/*
 		CODE FOR ONE TO MABY RELATIONSHIP
@@ -54,7 +56,7 @@ public class ProjectController {
 	
 	@PostMapping("/save")
 	public String postProjectForm(Project project, Model model) {
-		projRepo.save(project);
+		projectService.save(project);
 		//Reedirect-> prevent duplicate submissions
 		return "redirect:/projects/new";
 	}

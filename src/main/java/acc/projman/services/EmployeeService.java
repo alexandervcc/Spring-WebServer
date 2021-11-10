@@ -1,26 +1,25 @@
 package acc.projman.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import acc.projman.dao.EmployeeRepositoryInterf;
+import acc.projman.entity.Employee;
 
 @Service
 public class EmployeeService {
-	EmployeeRepositoryInterf emplRepo;
-	IStaffRepository stafRepo;
-	
-	public EmployeeService(EmployeeRepositoryInterf emplRepo, @Qualifier("staffRepositoryImpl1") IStaffRepository stafRepo) {
-		super();
-		this.emplRepo=emplRepo;
-		this.stafRepo=stafRepo;
-	}
-	
-	/*
 	@Autowired
-	public void setEmplRepo(@Autowired EmployeeRepositoryInterf emplRepo) {
-		this.emplRepo=emplRepo;
+	EmployeeRepositoryInterf emplRepo;
+
+	public Employee save(Employee employee) {
+		return this.emplRepo.save(employee);
 	}
-	*/
+	
+	public List<Employee> getAll(){
+		return this.emplRepo.findAll();
+	}
+		
 }
