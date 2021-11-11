@@ -1,4 +1,4 @@
-package acc.projman.services;
+package acc.projman.services.example;
 
 import org.springframework.stereotype.Repository;
 
