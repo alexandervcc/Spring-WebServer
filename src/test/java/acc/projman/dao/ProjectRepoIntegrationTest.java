@@ -35,7 +35,7 @@ public class ProjectRepoIntegrationTest {
 		Project newProject = new Project("Project 01","COMPLETE","Project 01");
 		projRepo.save(newProject);
 		
-		assertEquals(5, projRepo.findAll().size());
+		assertEquals(5, projRepo.findAll());
 	}
 	
 	

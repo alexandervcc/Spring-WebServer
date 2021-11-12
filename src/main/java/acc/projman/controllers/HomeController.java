@@ -2,22 +2,20 @@ package acc.projman.controllers;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import acc.projman.dao.EmployeeRepositoryInterf;
-import acc.projman.dao.ProjectRepositoryInterf;
 import acc.projman.entity.Employee;
 import acc.projman.entity.Project;
 import acc.projman.services.EmployeeService;
 import acc.projman.services.ProjectService;
 import acc.projman.springExamples.Car;
 
-@CrossOrigin(origins = "http://domain2.com", maxAge = 3600)
+@CrossOrigin(maxAge = 3600)
 @Controller
 public class HomeController {
 	@Value("${version}")
@@ -28,7 +26,7 @@ public class HomeController {
 	
 
 	//Constructor DI
-	public HomeController(String ver, Car car, ProjectService proyServ, EmployeeService emplServ) {
+	public HomeController(@Value("${version}") String ver, Car car, ProjectService proyServ, EmployeeService emplServ) {
 		super();
 		this.ver = ver;
 		this.car = car;

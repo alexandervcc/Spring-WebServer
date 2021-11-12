@@ -8,12 +8,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import acc.projman.entity.Employee;
 
 @Primary
-<<<<<<< Updated upstream
-public interface EmployeeRepositoryInterf extends CrudRepository<Employee, Long>{
-	@Override
-	public List<Employee> findAll();
-}
-=======
 public interface EmployeeRepositoryInterf extends PagingAndSortingRepository<Employee, Long>{
 	
 	@Override
@@ -22,4 +16,3 @@ public interface EmployeeRepositoryInterf extends PagingAndSortingRepository<Emp
 	public Employee findByEmail(String value);
 	
 }
->>>>>>> Stashed changes

@@ -21,5 +21,13 @@ public class EmployeeService {
 	public List<Employee> getAll(){
 		return this.emplRepo.findAll();
 	}
+	
+	public Employee findById(Long id) {
+		return emplRepo.findById(id).get();
+	}
+	
+	public void deleteById(Long id) {
+		emplRepo.deleteById(id);
+	}
 		
 }

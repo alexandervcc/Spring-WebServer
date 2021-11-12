@@ -19,13 +19,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-<<<<<<< Updated upstream
-=======
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import acc.projman.validators.UniqueValue;
 
->>>>>>> Stashed changes
 @Entity
 public class Employee {
 	@Id

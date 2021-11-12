@@ -35,9 +35,8 @@ public class EmployeeAPIController {
 	}
 	
 	@GetMapping("/{id}")
-	public Optional<Employee> getEmployee(@PathVariable("id") Long id) {		
+	public Employee getEmployee(@PathVariable("id") Long id) {		
 		return emplServ.findById(id);
-		//return emplServ.findById(id).get() -> for no OPTIONAL
 	}
 	
 	//POST = NEW RESOURCE
@@ -58,7 +57,7 @@ public class EmployeeAPIController {
 	//PATCH: partial updates
 	@PatchMapping(path="/{id}",consumes="application/json")
 	public Employee patchPartialUpdate(@PathVariable Long id, @RequestBody @Valid Employee patchEmp) {
-		Employee empl= emplServ.findById(id).get();
+		Employee empl= emplServ.findById(id);
 		if(patchEmp.getEmployeeEmail()!=null) {
 			empl.setEmployeeEmail(patchEmp.getEmployeeEmail());
 		}
