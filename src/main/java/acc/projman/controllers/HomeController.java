@@ -6,37 +6,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import acc.projman.dao.EmployeeRepositoryInterf;
 import acc.projman.dao.ProjectRepositoryInterf;
 import acc.projman.entity.Employee;
 import acc.projman.entity.Project;
+import acc.projman.services.EmployeeService;
+import acc.projman.services.ProjectService;
 import acc.projman.springExamples.Car;
 
+@CrossOrigin(origins = "http://domain2.com", maxAge = 3600)
 @Controller
-
 public class HomeController {
 	@Value("${version}")
 	String ver;
 	Car car;
-	ProjectRepositoryInterf projRepo;
-	EmployeeRepositoryInterf emplRepo;
+	ProjectService proyServ;
+	EmployeeService emplServ;
 	
-	public HomeController(Car car, ProjectRepositoryInterf projRepo, EmployeeRepositoryInterf emplRepo) {
-		this.car=car;
-		this.projRepo=projRepo;
-		this.emplRepo=emplRepo;
+
+	//Constructor DI
+	public HomeController(String ver, Car car, ProjectService proyServ, EmployeeService emplServ) {
+		super();
+		this.ver = ver;
+		this.car = car;
+		this.proyServ = proyServ;
+		this.emplServ = emplServ;
 	}
 	
 	@GetMapping("/")
 	public String getHome(Model model) {
-		List<Project> projList= projRepo.findAll();
-		List<Employee> emplList= emplRepo.findAll();
+		List<Project> projList = proyServ.getAll();
+		List<Employee> emplList= emplServ.getAll();
 		
 		model.addAttribute("ver", ver);
 		model.addAttribute("projects", projList);
 		model.addAttribute("employees", emplList);
 		return "main/home";
 	}
+
+
+	
 }

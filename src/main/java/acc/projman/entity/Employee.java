@@ -3,6 +3,7 @@ package acc.projman.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,17 +14,37 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+<<<<<<< Updated upstream
+=======
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import acc.projman.validators.UniqueValue;
+
+>>>>>>> Stashed changes
 @Entity
 public class Employee {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="employee_seq")
 	@SequenceGenerator(name = "employee_seq", allocationSize = 1) 
 	private long employee_id;
+
+	@NotNull
+	@Size(min = 5,max = 15)
 	private String first_name;
+	
+	@NotNull
+	@Size(min = 5,max = 15)
 	private String last_name;
+	
+	@NotNull
+	@Email
+	//@Column(unique = true,nullable = false)//no repeated emails
+	@UniqueValue
 	private String email;
 	
 	//@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},fetch=FetchType.LAZY)
@@ -31,7 +52,6 @@ public class Employee {
 	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST},fetch=FetchType.LAZY)
 	@JoinTable(name="project_employee",joinColumns = @JoinColumn(name="employee_id"),
 	inverseJoinColumns = @JoinColumn(name="project_id"))
-	@JsonIgnore 
 	private List<Project> projects;	
 	
 	

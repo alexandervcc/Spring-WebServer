@@ -84,5 +84,11 @@ public class EmployeeRepository2 implements EmployeeRepositoryInterf{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Employee findByEmail(String value) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

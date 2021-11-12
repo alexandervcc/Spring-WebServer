@@ -1,14 +1,14 @@
 package acc.projman.api.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,72 +17,71 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import acc.projman.entity.Employee;
-import acc.projman.services.EmployeeService;
+import acc.projman.entity.Project;
+import acc.projman.services.ProjectService;
 
 @RestController
-@RequestMapping("/api/employees")
-public class EmployeeAPIController {
+@RequestMapping("/api/projects")
+public class ProjectAPIController {
 	@Autowired
-	EmployeeService emplServ;
+	ProjectService proyServ;
 	
+
 	@GetMapping
-	public List<Employee> getEmployees(){
-		return this.emplServ.getAll();
+	public List<Project> getEmployees(){
+		return this.proyServ.getAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Optional<Employee> getEmployee(@PathVariable("id") Long id) {		
-		return emplServ.findById(id);
+	public Project getEmployee(@PathVariable("id") Long id) {		
+		return proyServ.findById(id);
 		//return emplServ.findById(id).get() -> for no OPTIONAL
 	}
 	
 	//POST = NEW RESOURCE
 	@PostMapping(consumes="application/json")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Employee postCreateEmployee(@RequestBody @Valid Employee emp) {
-		 return emplServ.save(emp);
+	public Project postCreateEmployee(@RequestBody @Valid Project proy) {
+		 return proyServ.save(proy);
 	}
 	
 	//PUT = UPDATE RESOURCE
 	@PutMapping(consumes="application/json")
 	@ResponseStatus(HttpStatus.OK)
-	public Employee putUpdateEmployee(@RequestBody @Valid Employee emp) {
+	public Project putUpdateEmployee(@RequestBody @Valid Project proy) {
 		//if emp, has the ID it will UPDATE else it wont
-		return emplServ.save(emp);
+		return proyServ.save(proy);
 	}
 	
 	//PATCH: partial updates
 	@PatchMapping(path="/{id}",consumes="application/json")
-	public Employee patchPartialUpdate(@PathVariable Long id, @RequestBody @Valid Employee patchEmp) {
-		Employee empl= emplServ.findById(id).get();
-		if(patchEmp.getEmployeeEmail()!=null) {
-			empl.setEmployeeEmail(patchEmp.getEmployeeEmail());
+	public Project patchPartialUpdate(@PathVariable Long id, @RequestBody @Valid Project patchProy) {
+		Project proy= proyServ.findById(id);
+		if(patchProy.getProjectDesc()!=null) {
+			proy.setProjectDesc(patchProy.getProjectDesc());
 		}
-		if(patchEmp.getEmployeeFirstName()!=null) {
-			empl.setEmployeeFirstName(patchEmp.getEmployeeFirstName());
+		if(patchProy.getProjectName()!=null) {
+			proy.setProjectName(patchProy.getProjectName());
 		}
-		if(patchEmp.getEmployeeLastName()!=null) {
-			empl.setEmployeeLastName(patchEmp.getEmployeeLastName());
+		if(patchProy.getProjectStage()!=null) {
+			proy.setProjectStage(patchProy.getProjectStage());
 		}
-		return emplServ.save(empl);
+		return proyServ.save(proy);
 	}
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteEmployee(@PathVariable Long id) {
+	public void deleteProject(@PathVariable Long id) {
 		try {
-			emplServ.deleteById(id);
+			proyServ.delete(id);
 		} catch (EmptyResultDataAccessException e) {
 			
 		}
-		
 	}
-	
-	
 	
 	
 	
