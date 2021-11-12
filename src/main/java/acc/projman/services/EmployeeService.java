@@ -1,6 +1,7 @@
 package acc.projman.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,6 +21,14 @@ public class EmployeeService {
 	
 	public List<Employee> getAll(){
 		return this.emplRepo.findAll();
+	}
+	
+	public Optional<Employee> findById(Long idEmployee) {
+		return this.emplRepo.findById(idEmployee);
+	}
+	
+	public void deleteById(Long id) {
+		this.emplRepo.deleteById(id);
 	}
 		
 }

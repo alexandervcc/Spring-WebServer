@@ -9,6 +9,8 @@ import acc.projman.entity.Employee;
 
 @Primary
 public interface EmployeeRepositoryInterf extends CrudRepository<Employee, Long>{
+	
 	@Override
 	public List<Employee> findAll();
+	
 }
